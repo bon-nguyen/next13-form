@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+import React, { useState, useContext } from 'react';
 
-## Getting Started
+// Create a new context for the form data
+const FormContext = React.createContext();
 
-First, run the development server:
+// Create a custom hook to access the form context
+export const useFormContext = () => useContext(FormContext);
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+function FormProvider({ children }) {
+const [formData, setFormData] = useState({
+username: '',
+email: '',
+password: '',
+});
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+const handleChange = (e) => {
+const { name, value } = e.target;
+setFormData({
+...formData,
+[name]: value,
+});
+};
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+const handleSubmit = (e) => {
+e.preventDefault();
+// You can perform form validation here and submit the data to your server
+console.log(formData);
+};
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+const formContextValue = {
+formData,
+handleChange,
+handleSubmit,
+};
 
-## Learn More
+return (
+<FormContext.Provider value={formContextValue}>
+{children}
+</FormContext.Provider>
+);
+}
 
-To learn more about Next.js, take a look at the following resources:
+function CustomForm() {
+const { formData, handleChange, handleSubmit } = useFormContext();
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+return (
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<div>
+<h2>Registration Form</h2>
+<form onSubmit={handleSubmit}>
+<div>
+<label htmlFor="username">Username:</label>
+<input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+</div>
+<div>
+<label htmlFor="email">Email:</label>
+<input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+</div>
+<div>
+<label htmlFor="password">Password:</label>
+<input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+</div>
+<div>
+<button type="submit">Register</button>
+</div>
+</form>
+</div>
+);
+}
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+export default function App() {
+return (
+<FormProvider>
+<CustomForm />
+</FormProvider>
+);
+}
