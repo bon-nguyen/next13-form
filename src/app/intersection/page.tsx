@@ -38,7 +38,6 @@ const InterSection = () => {
         (query.page - 1) * query.limit,
         query.page * query.limit
       );
-      console.log("data", res);
       return prev;
     });
   }, [query, data]);
