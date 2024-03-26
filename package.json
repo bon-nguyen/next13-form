@@ -9,15 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "react-dom": "latest"
   },
   "devDependencies": {
+    "@swc/plugin-styled-components": "^1.5.87",
     "autoprefixer": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
+    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "latest",
-    "eslint-config-next": "latest"
+    "eslint-config-next": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
   }
 }
