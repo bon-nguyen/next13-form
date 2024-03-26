@@ -233,7 +233,7 @@ const initialTravelPlan = {
         },
         {
           id: 44,
-          title: "Piccolomini",
+          title: "Piccolomin 111i",
           childPlaces: [],
         },
         {
