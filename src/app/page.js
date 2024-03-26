@@ -228,7 +228,7 @@ const initialTravelPlan = {
       childPlaces: [
         {
           id: 43,
-          title: "Rheita",
+          title: "Rheita ss",
           childPlaces: [],
         },
         {
